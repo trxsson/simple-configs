@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import dev.trxsson.simpleconfigs.Config;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,13 +19,13 @@ public class ConfigLoader {
     private final ObjectMapper objectMapper;
     private final Logger logger;
 
-    public ConfigLoader(Logger logger) {
+    public ConfigLoader(@NotNull Logger logger) {
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         this.logger = logger;
     }
 
-    public <A> Config loadConfig(File file, Class<? extends Config> aClass, String configVersion) {
+    public <A> Config loadConfig(@NotNull File file, @NotNull Class<? extends Config> aClass, @NotNull String configVersion) {
         try {
             if (file.exists()) {
                 if (!Objects.equals(objectMapper.readTree(file).get("version").asText(), configVersion)) {

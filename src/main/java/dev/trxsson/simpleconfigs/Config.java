@@ -1,5 +1,7 @@
 package dev.trxsson.simpleconfigs;
 
+import org.jetbrains.annotations.NotNull;
+
 public abstract class Config {
     protected String config_version = "";
 
@@ -7,7 +9,7 @@ public abstract class Config {
         return config_version;
     }
 
-    public void setConfigVersion(String config_version) {
-        this.config_version = config_version;
+    public void setConfigVersion(@NotNull String configVersion) {
+        this.config_version = configVersion;
     }
 }
