@@ -28,7 +28,7 @@ public class ConfigLoader {
     public <A> Config loadConfig(@NotNull File file, @NotNull Class<? extends Config> aClass, @NotNull String configVersion) {
         try {
             if (file.exists()) {
-                if (!Objects.equals(objectMapper.readTree(file).get("version").asText(), configVersion)) {
+                if (!Objects.equals(objectMapper.readTree(file).get("config_version").asText(), configVersion)) {
                     File backupFile = new File(new File(file.getParentFile(), "backups"), "backup_" + file.getName());
                     if (backupFile.getParentFile().mkdir() || backupFile.delete()) {
                         logger.info("CLEANED UP PATH FOR " + backupFile.getName());
@@ -46,7 +46,7 @@ public class ConfigLoader {
                             newNode.set(entry.getKey(), entry.getValue());
                         }
                     });
-                    newNode.put("version", configVersion);
+                    newNode.put("config_version", configVersion);
                     logger.info("SUCCESSFULLY UPDATED " + file.getName());
                     Config finalInstance = objectMapper.treeToValue(newNode, aClass);
                     objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, finalInstance);
@@ -56,7 +56,7 @@ public class ConfigLoader {
                     logger.info("Succeeded in creating " + file);
                 }
                 Config instance = aClass.getDeclaredConstructor().newInstance();
-                instance.setConfigVersion(configVersion);
+                instance.config_version = configVersion;
                 objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, instance);
             }
             return objectMapper.treeToValue(objectMapper.readTree(file), aClass);
