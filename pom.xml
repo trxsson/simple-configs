@@ -6,12 +6,7 @@
 
     <groupId>dev.trxsson</groupId>
     <artifactId>Simple-Configs</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
+    <version>1.0.1-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
